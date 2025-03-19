@@ -3,1119 +3,893 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Rely Fast Foods</title>
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <!-- Bootstrap -->
+    <title>South African Education Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Normalize.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <style>
         :root {
-            --primary-color: #ff6b35; /* Orange for order buttons */
-            --secondary-color: #2e294e; /* Dark purple for headers */
-            --accent-color: #f7c59f; /* Light peach for hover */
-            --light-color: #f1f2eb; /* Background */
-            --dark-color: #1a1a1a; /* Text */
-            --report-color: #28a745; /* Green for reporting mode */
-            --card-bg: #ffe6d5; /* Light orange for cards */
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --dark: #1a1b41;
+            --light: #f8f9fa;
+            --success: #4ade80;
+            --danger: #f87171;
+            --warning: #fbbf24;
+            --info: #0ea5e9;
         }
         
         body {
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f5ff;
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            background-color: var(--primary-color);
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 60px 0;
             color: white;
-            padding: 20px 0;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
         }
         
-        nav {
-            background-color: var(--secondary-color);
-            padding: 10px 0;
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/800/400');
+            background-size: cover;
+            opacity: 0.1;
         }
         
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
         
-        nav ul li {
-            margin: 0 15px;
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
         
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .nav-pills {
+            background-color: white;
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            display: inline-flex;
+        }
+        
+        .nav-pills .nav-link {
+            border-radius: 50px;
+            padding: 12px 25px;
+            margin: 0 5px;
+            font-weight: 600;
+            color: var(--dark);
             transition: all 0.3s ease;
         }
         
-        nav ul li a:hover {
-            color: var(--accent-color);
-        }
-        
-        .menu-section {
-            padding: 30px 0;
-        }
-        
-        .menu-section h2 {
-            text-align: center;
-            color: var(--secondary-color);
-            margin-bottom: 30px;
-            font-size: 2rem;
-        }
-        
-        .menu-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .menu-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .menu-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card-header {
-            background-color: var(--secondary-color);
+        .nav-pills .nav-link.active {
+            background-color: var(--primary);
             color: white;
-            padding: 15px;
-            text-align: center;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .nav-pills .nav-link:hover:not(.active) {
+            background-color: #f0f5ff;
+            transform: translateY(-2px);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-img-top {
+            height: 180px;
+            object-fit: contain;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover .card-img-top {
+            transform: scale(1.05);
         }
         
         .card-body {
-            padding: 15px;
+            padding: 25px;
+            position: relative;
         }
         
-        .card-body ul {
-            list-style: none;
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
             margin-bottom: 15px;
         }
         
-        .card-body ul li {
-            margin-bottom: 5px;
-        }
-        
-        .price {
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-        }
-        
-        .order-btn {
-            display: block;
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-        }
-        
-        .order-btn:hover {
-            background-color: #e85a24;
-        }
-        
-        .report-btn {
-            background-color: var(--report-color);
-        }
-        
-        .report-btn:hover {
-            background-color: #218838;
-        }
-        
-        footer {
-            background-color: var(--secondary-color);
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 30px;
-        }
-        
-        .contact-section {
-            padding: 20px 0;
-            text-align: center;
-        }
-        
-        .contact-section p {
-            margin: 10px 0;
-        }
-        
-        .contact-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px;
-            font-weight: 500;
-        }
-        
-        .contact-btn:hover {
-            background-color: #e85a24;
-        }
-        
-        .admin-section {
-            display: none;
-            padding: 30px 0;
-        }
-        
-        .admin-form {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        
-        .submit-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-        
-        .submit-btn:hover {
-            background-color: #231f3a;
-        }
-        
-        .admin-toggle {
-            position: fixed;
-            bottom: 20px;
+        .status-badge {
+            position: absolute;
+            top: -15px;
             right: 20px;
-            background-color: var(--secondary-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .status-open {
+            background-color: var(--success);
             color: white;
+        }
+        
+        .status-closed {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(63, 55, 201, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        .btn-download {
+            background-color: var(--info);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-download:hover {
+            background-color: #0284c7;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
+        }
+        
+        .btn-icon {
+            margin-right: 8px;
+        }
+        
+        .card-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .info-modal .modal-content {
+            border-radius: 15px;
+            border: none;
+            overflow: hidden;
+        }
+        
+        .info-modal .modal-header {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 20px 25px;
+        }
+        
+        .info-modal .modal-body {
+            padding: 30px;
+        }
+        
+        .info-modal .modal-footer {
+            border: none;
+            padding: 20px 25px;
+        }
+        
+        .info-button {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        
+        .info-button:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: rotate(180deg);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
             width: 50px;
             height: 50px;
-            border-radius: 50%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 100;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
         
-        .admin-toggle:hover {
-            background-color: #231f3a;
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
         }
-
-        .modal {
-            display: none;
+        
+        .back-to-top:hover {
+            background-color: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-logo {
+            max-width: 180px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .loading-spinner {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 200;
-            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
             align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
         
-        .modal-content {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            width: 350px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .loading-spinner.active {
+            opacity: 1;
+            visibility: visible;
         }
         
-        .modal-content h3 {
-            margin-bottom: 15px;
-            color: var(--secondary-color);
+        .loading-spinner .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
         
-        .modal-close {
-            float: right;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--dark-color);
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        .modal-btn {
-            background-color: var(--primary-color);
-            color: white;
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-right: 50px;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             font-size: 1rem;
-            font-weight: 500;
-            margin-top: 10px;
+            transition: all 0.3s ease;
         }
         
-        .modal-btn:hover {
-            background-color: #e85a24;
+        .search-input:focus {
+            box-shadow: 0 5px 20px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .filter-option {
+            background-color: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-option.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .filter-option:hover:not(.active) {
+            background-color: #f0f5ff;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .empty-state img {
+            max-width: 200px;
+            margin-bottom: 30px;
+            opacity: 0.5;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .empty-state p {
+            font-size: 1rem;
+            color: #6c757d;
+            max-width: 500px;
+            margin: 0 auto 30px;
         }
         
         @media (max-width: 768px) {
-            .menu-cards {
-                grid-template-columns: 1fr;
+            .hero-title {
+                font-size: 2rem;
             }
             
-            nav ul {
-                flex-direction: column;
-                align-items: center;
+            .hero-subtitle {
+                font-size: 1rem;
             }
             
-            nav ul li {
-                margin: 5px 0;
+            .nav-pills {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-pills .nav-link {
+                margin-bottom: 10px;
+            }
+            
+            .empty-state img {
+                max-width: 150px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="hero-section">
+        <div class="container hero-content">
+            <a href="https://applywithme.co.za" class="mb-4 d-inline-block">
+                <img src="https://applywithme.co.za/wp-content/uploads/2024/02/Untitled-3-1920x432.png" alt="Apply With Me Logo" class="img-fluid" style="max-width: 250px; background-color: white; padding: 10px; border-radius: 10px;">
+            </a>
+            <h1 class="hero-title">Your Education Journey Starts Here</h1>
+            <p class="hero-subtitle">Explore South African Universities, TVET Colleges, Private Colleges, and Bursary Opportunities</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search for institutions...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
+            <ul class="nav nav-pills" id="institutionTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="universities-tab" data-bs-toggle="pill" data-bs-target="#universities" type="button" role="tab">
+                        <i class="fas fa-university btn-icon"></i>Universities
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tvet-tab" data-bs-toggle="pill" data-bs-target="#tvet" type="button" role="tab">
+                        <i class="fas fa-tools btn-icon"></i>TVET Colleges
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="private-tab" data-bs-toggle="pill" data-bs-target="#private" type="button" role="tab">
+                        <i class="fas fa-building btn-icon"></i>Private Colleges
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="bursaries-tab" data-bs-toggle="pill" data-bs-target="#bursaries" type="button" role="tab">
+                        <i class="fas fa-graduation-cap btn-icon"></i>Bursaries
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="info-button" data-bs-toggle="modal" data-bs-target="#infoModal">
+                        <i class="fas fa-info"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tab-content" id="institutionTabsContent">
+            <div class="tab-pane fade show active" id="universities" role="tabpanel">
+                <div class="filter-options mb-4">
+                    <div class="filter-option active" data-filter="all">All</div>
+                    <div class="filter-option" data-filter="open">Open Applications</div>
+                    <div class="filter-option" data-filter="closed">Closed Applications</div>
+                </div>
+                <div class="row g-4" id="universitiesGrid">
+                    <!-- Universities will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="tvet" role="tabpanel">
+                <div class="filter-options mb-4">
+                    <div class="filter-option active" data-filter="all">All</div>
+                    <div class="filter-option" data-filter="open">Open Applications</div>
+                    <div class="filter-option" data-filter="closed">Closed Applications</div>
+                </div>
+                <div class="row g-4" id="tvetGrid">
+                    <!-- TVET Colleges will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="private" role="tabpanel">
+                <div class="filter-options mb-4">
+                    <div class="filter-option active" data-filter="all">All</div>
+                    <div class="filter-option" data-filter="open">Open Applications</div>
+                    <div class="filter-option" data-filter="closed">Closed Applications</div>
+                </div>
+                <div class="row g-4" id="privateGrid">
+                    <!-- Private Colleges will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="bursaries" role="tabpanel">
+                <div class="filter-options mb-4">
+                    <div class="filter-option active" data-filter="all">All</div>
+                    <div class="filter-option" data-filter="open">Open Applications</div>
+                    <div class="filter-option" data-filter="closed">Closed Applications</div>
+                </div>
+                <div class="row g-4" id="bursariesGrid">
+                    <!-- Bursaries will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="backToTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div class="modal fade info-modal" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoModalLabel">How to Use This Platform</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Welcome to the South African Education Portal! This platform helps you explore educational opportunities across the country.</p>
+                    
+                    <h6 class="mt-4 mb-3"><i class="fas fa-laptop-code me-2"></i>Using the Platform</h6>
+                    <ul>
+                        <li>Use the tabs to switch between different types of institutions</li>
+                        <li>Search for specific institutions using the search bar</li>
+                        <li>Filter institutions based on their application status</li>
+                        <li>Click on institution cards to view more details</li>
+                    </ul>
+                    
+                    <h6 class="mt-4 mb-3"><i class="fas fa-award me-2"></i>Why Choose Apply With Me?</h6>
+                    <p>When you choose <strong>Apply With Me's</strong> services, you increase your chances of acceptance because:</p>
+                    <ul>
+                        <li>We know how to navigate the application systems effectively</li>
+                        <li>We assess your results to guide you towards programs you're best qualified for</li>
+                        <li>We ensure that you apply for courses where you have the strongest prospects for success</li>
+                    </ul>
+                    
+                    <h6 class="mt-4 mb-3"><i class="fas fa-question-circle me-2"></i>Need Help?</h6>
+                    <p>If you have questions, feedback, or need assistance, reach out to us through:</p>
+                    <div class="d-flex justify-content-center mt-3">
+                        <a href="https://applywithme.co.za/contact" class="btn btn-primary">
+                            <i class="fas fa-envelope me-2"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
         <div class="container">
-            <h1>The Rely Fast Foods</h1>
-            <p>Delicious meals at great prices!</p>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="https://applywithme.co.za/wp-content/uploads/2024/02/Untitled-3-1920x432.png" alt="Apply With Me Logo" class="footer-logo img-fluid" style="background-color: white; padding: 10px; border-radius: 10px;">
+                    <p>We Make The Impossible Possible</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="https://applywithme.co.za">Home</a></li>
+                            <li><a href="https://applywithme.co.za/about">About Us</a></li>
+                            <li><a href="https://applywithme.co.za/services">Services</a></li>
+                            <li><a href="https://applywithme.co.za/contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Institutions</h5>
+                        <ul>
+                            <li><a href="#universities">Universities</a></li>
+                            <li><a href="#tvet">TVET Colleges</a></li>
+                            <li><a href="#private">Private Colleges</a></li>
+                            <li><a href="#bursaries">Bursaries</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <div class="footer-links">
+                        <h5>Contact Us</h5>
+                        <ul>
+                            <li><i class="fas fa-phone me-2"></i> +27 67 355 4250</li>
+                            <li><i class="fas fa-phone me-2"></i> +27 72 617 1976</li>
+                            <li><a href="mailto:info@applywithme.co.za"><i class="fas fa-envelope me-2"></i> info@applywithme.co.za</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <span id="currentYear"></span> Apply With Me. All Rights Reserved.</p>
+                <p>Developed by <a href="https://www.instagram.com/malepe_brilliant/" style="color: var(--accent);">Malepe Brilliant</a></p>
+            </div>
         </div>
-    </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#plates">Plates</a></li>
-            <li><a href="#kotas">Kotas</a></li>
-            <li><a href="#extras">Extras</a></li>
-            <li><a href="#chips">Chips</a></li>
-            <li><a href="#fish">Fish</a></li>
-        </ul>
-    </nav>
-    
-    <main class="container">
-        <section class="contact-section">
-            <h2>Contact Us</h2>
-            <p>Order via WhatsApp or Call:</p>
-            <p>+27 71 241 8491</p>
-            <button class="contact-btn" onclick="showOrderModal('contact', '+27712418491')">WhatsApp</button>
-            <button class="contact-btn" onclick="callNumber('+27712418491')">Call</button>
-            <p>+27 74 698 8446</p>
-            <button class="contact-btn" onclick="showOrderModal('contact', '+27746988446')">WhatsApp</button>
-            <button class="contact-btn" onclick="callNumber('+27746988446')">Call</button>
-        </section>
-        
-        <section id="plates" class="menu-section">
-            <h2>Plates</h2>
-            <div class="menu-cards">
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Full Plate</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Pap</li>
-                            <li>Steak/Chicken/Mogodu/Stew Beef</li>
-                            <li>2 Sides</li>
-                        </ul>
-                        <p class="price">R80.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Full Plate', 80.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Half Plate</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Pap</li>
-                            <li>Steak/Chicken/Mogodu/Stew Beef</li>
-                            <li>2 Sides</li>
-                        </ul>
-                        <p class="price">R60.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Half Plate', 60.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Full Plate Malana le Maotwana</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Pap</li>
-                            <li>Malana le Maotwana</li>
-                        </ul>
-                        <p class="price">R70.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Full Plate Malana le Maotwana', 70.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Half Plate Malana le Maotwana</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Pap</li>
-                            <li>Malana le Maotwana</li>
-                        </ul>
-                        <p class="price">R50.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Half Plate Malana le Maotwana', 50.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Sides Only</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Choose any side</li>
-                        </ul>
-                        <p class="price">R10.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Sides Only', 10.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Pap Only</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Just Pap</li>
-                        </ul>
-                        <p class="price">R20.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Pap Only', 20.00)">Order Now</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="kotas" class="menu-section">
-            <h2>Kotas</h2>
-            <div class="menu-cards">
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Sedan</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>4 slices bread</li>
-                            <li>Polony</li>
-                            <li>Chips</li>
-                            <li>Archer</li>
-                            <li>Lettuce</li>
-                        </ul>
-                        <p class="price">R15.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Sedan Kota', 15.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Fiat</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>4 slices bread</li>
-                            <li>Polony</li>
-                            <li>Vienna</li>
-                            <li>Chips</li>
-                            <li>Archer</li>
-                            <li>Lettuce</li>
-                        </ul>
-                        <p class="price">R17.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Fiat Kota', 17.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Honda</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>4 slices bread</li>
-                            <li>Polony</li>
-                            <li>Russian</li>
-                            <li>Chips</li>
-                            <li>Archer</li>
-                            <li>Lettuce</li>
-                        </ul>
-                        <p class="price">R20.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Honda Kota', 20.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Hyundai</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>4 slices bread</li>
-                            <li>Polony</li>
-                            <li>Russian</li>
-                            <li>Vienna</li>
-                            <li>Chips</li>
-                            <li>Archer</li>
-                            <li>Lettuce</li>
-                        </ul>
-                        <p class="price">R22.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Hyundai Kota', 22.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Audi</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>4 slices bread</li>
-                            <li>Polony</li>
-                            <li>Russian</li>
-                            <li>Cheese</li>
-                            <li>Chips</li>
-                            <li>Archer</li>
-                            <li>Lettuce</li>
-                        </ul>
-                        <p class="price">R24.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Audi Kota', 24.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>BMW</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>4 slices bread</li>
-                            <li>Polony</li>
-                            <li>Russian</li>
-                            <li>Cheese</li>
-                            <li>Vienna</li>
-                            <li>Chips</li>
-                            <li>Archer</li>
-                            <li>Lettuce</li>
-                        </ul>
-                        <p class="price">R26.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'BMW Kota', 26.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Dodge</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>4 slices bread</li>
-                            <li>Polony</li>
-                            <li>Russian</li>
-                            <li>Double Cheese</li>
-                            <li>Vienna</li>
-                            <li>Chips</li>
-                            <li>Archer</li>
-                            <li>Lettuce</li>
-                        </ul>
-                        <p class="price">R30.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Dodge Kota', 30.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Ferrari</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>4 slices bread</li>
-                            <li>Polony</li>
-                            <li>Russian</li>
-                            <li>Double Cheese</li>
-                            <li>Vienna</li>
-                            <li>Egg</li>
-                            <li>Chips</li>
-                            <li>Archer</li>
-                            <li>Lettuce</li>
-                        </ul>
-                        <p class="price">R35.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Ferrari Kota', 35.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Alfa Romeo</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>4 slices bread</li>
-                            <li>Polony</li>
-                            <li>Russian</li>
-                            <li>Double Cheese</li>
-                            <li>Vienna</li>
-                            <li>Petty</li>
-                            <li>Chips</li>
-                            <li>Archer</li>
-                            <li>Lettuce</li>
-                        </ul>
-                        <p class="price">R40.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Alfa Romeo Kota', 40.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Jeep</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>4 slices bread</li>
-                            <li>Polony</li>
-                            <li>Russian</li>
-                            <li>Double Cheese</li>
-                            <li>Vienna</li>
-                            <li>Egg</li>
-                            <li>Petty</li>
-                            <li>Chips</li>
-                            <li>Archer</li>
-                            <li>Lettuce</li>
-                        </ul>
-                        <p class="price">R45.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Jeep Kota', 45.00)">Order Now</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="extras" class="menu-section">
-            <h2>Extras</h2>
-            <div class="menu-cards">
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Russian</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R8.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Russian', 8.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Vienna</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R3.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Vienna', 3.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Polony</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R3.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Polony', 3.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Cheese</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R5.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Cheese', 5.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Archer</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R10.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Archer', 10.00)">Order Now</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="chips" class="menu-section">
-            <h2>Chips</h2>
-            <div class="menu-cards">
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Small Chips</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R20.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Small Chips', 20.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Medium Chips</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R25.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Medium Chips', 25.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Large Chips</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R30.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Large Chips', 30.00)">Order Now</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="fish" class="menu-section">
-            <h2>Fish</h2>
-            <div class="menu-cards">
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Small Fish</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R20.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Small Fish', 20.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Medium Fish</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R30.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Medium Fish', 30.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Large Fish</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R40.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Large Fish', 40.00)">Order Now</button>
-                    </div>
-                </div>
-                <div class="menu-card">
-                    <div class="card-header">
-                        <h3>Fish and Chips</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="price">R40.00</p>
-                        <button class="order-btn" onclick="showOrderModal('item', 'Fish and Chips', 40.00)">Order Now</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="admin-section" class="admin-section">
-            <h2>Sales Reporting</h2>
-            <div class="admin-form">
-                <div class="form-group">
-                    <label for="item-select">Item</label>
-                    <select id="item-select"></select>
-                </div>
-                <div class="form-group">
-                    <label for="quantity">Quantity</label>
-                    <input type="number" id="quantity" min="1" value="1">
-                </div>
-                <div class="form-group">
-                    <label for="customer-name">Customer Name (Optional)</label>
-                    <input type="text" id="customer-name">
-                </div>
-                <button class="submit-btn" onclick="recordSale()">Record Sale</button>
-                <button class="submit-btn" onclick="downloadSalesCSV()">Download Sales CSV</button>
-                <div id="sales-summary" style="margin-top: 20px;">
-                    <h3>Today's Sales Summary</h3>
-                    <p>Total Sales: R<span id="total-sales">0.00</span></p>
-                    <p>Total Items Sold: <span id="total-items">0</span></p>
-                </div>
-            </div>
-        </section>
-    </main>
-    
-    <div class="admin-toggle" onclick="showLoginModal()">
-        <i class="fas fa-user-lock"></i>
-    </div>
-    
-    <div id="login-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeLoginModal()">×</span>
-            <h3>Admin Login</h3>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password">
-            </div>
-            <button class="modal-btn" onclick="login()">Login</button>
-        </div>
-    </div>
-    
-    <div id="order-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeOrderModal()">×</span>
-            <h3 id="modal-title"></h3>
-            <div id="modal-body">
-            </div>
-            <button class="modal-btn" id="modal-submit"></button>
-        </div>
-    </div>
-    
-    <footer>
-        <p>© 2025 The Rely Fast Foods (Pty) Ltd. All rights reserved.</p>
     </footer>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const menuItems = [
-            { name: 'Full Plate', price: 80.00, category: 'Plates' },
-            { name: 'Half Plate', price: 60.00, category: 'Plates' },
-            { name: 'Full Plate Malana le Maotwana', price: 70.00, category: 'Plates' },
-            { name: 'Half Plate Malana le Maotwana', price: 50.00, category: 'Plates' },
-            { name: 'Sides Only', price: 10.00, category: 'Plates' },
-            { name: 'Pap Only', price: 20.00, category: 'Plates' },
-            { name: 'Sedan Kota', price: 15.00, category: 'Kotas' },
-            { name: 'Fiat Kota', price: 17.00, category: 'Kotas' },
-            { name: 'Honda Kota', price: 20.00, category: 'Kotas' },
-            { name: 'Hyundai Kota', price: 22.00, category: 'Kotas' },
-            { name: 'Audi Kota', price: 24.00, category: 'Kotas' },
-            { name: 'BMW Kota', price: 26.00, category: 'Kotas' },
-            { name: 'Dodge Kota', price: 30.00, category: 'Kotas' },
-            { name: 'Ferrari Kota', price: 35.00, category: 'Kotas' },
-            { name: 'Alfa Romeo Kota', price: 40.00, category: 'Kotas' },
-            { name: 'Jeep Kota', price: 45.00, category: 'Kotas' },
-            { name: 'Russian', price: 8.00, category: 'Extras' },
-            { name: 'Vienna', price: 3.00, category: 'Extras' },
-            { name: 'Polony', price: 3.00, category: 'Extras' },
-            { name: 'Cheese', price: 5.00, category: 'Extras' },
-            { name: 'Archer', price: 10.00, category: 'Extras' },
-            { name: 'Small Chips', price: 20.00, category: 'Chips' },
-            { name: 'Medium Chips', price: 25.00, category: 'Chips' },
-            { name: 'Large Chips', price: 30.00, category: 'Chips' },
-            { name: 'Small Fish', price: 20.00, category: 'Fish' },
-            { name: 'Medium Fish', price: 30.00, category: 'Fish' },
-            { name: 'Large Fish', price: 40.00, category: 'Fish' },
-            { name: 'Fish and Chips', price: 40.00, category: 'Fish' }
-        ];
+        document.addEventListener('DOMContentLoaded', function() {
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycby_JY62PsdF-eStxPrl1FYqjlOo9wp4uSxafeZmt-GSZQ_9JaSHPC2ALI6ZkXn7jRgn/exec';
+            let allInstitutions = {
+                universities: [],
+                tvet: [],
+                private: [],
+                bursaries: []
+            };
+            let currentTab = 'universities';
 
-        let salesData = JSON.parse(localStorage.getItem('salesData')) || [];
-        let isAdminLoggedIn = false;
-        const contactNumbers = ['+27712418491', '+27746988446'];
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwGo8wq0Vt6oewDH8NUx9UuOVk5efZEgi4KPAxBlLVGAsEfpqar-m3stD7K7osLgJ8t5A/exec';
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        const itemSelect = document.getElementById('item-select');
-        menuItems.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item.name;
-            option.textContent = `${item.name} - R${item.price.toFixed(2)}`;
-            itemSelect.appendChild(option);
-        });
+            // Show/hide loading spinner
+            function showLoading() {
+                document.getElementById('loadingSpinner').classList.add('active');
+            }
+            function hideLoading() {
+                document.getElementById('loadingSpinner').classList.remove('active');
+            }
 
-        function showLoginModal() {
-            document.getElementById('login-modal').style.display = 'flex';
-        }
-
-        function closeLoginModal() {
-            document.getElementById('login-modal').style.display = 'none';
-        }
-
-        function showOrderModal(type, param1, param2) {
-            const modal = document.getElementById('order-modal');
-            const title = document.getElementById('modal-title');
-            const body = document.getElementById('modal-body');
-            const submitBtn = document.getElementById('modal-submit');
-
-            if (type === 'item') {
-                const itemName = param1;
-                const price = param2;
-                if (isAdminLoggedIn) {
-                    title.textContent = `Report Sale: ${itemName}`;
-                    body.innerHTML = `
-                        <div class="form-group">
-                            <label for="modal-quantity">How many ${itemName}s were sold?</label>
-                            <input type="number" id="modal-quantity" min="1" value="1">
-                        </div>
-                        <div class="form-group">
-                            <label for="modal-customer">Customer Name (Optional)</label>
-                            <input type="text" id="modal-customer">
-                        </div>
-                    `;
-                    submitBtn.textContent = 'Submit Report';
-                    submitBtn.onclick = () => {
-                        const quantity = document.getElementById('modal-quantity').value;
-                        const customer = document.getElementById('modal-customer').value || 'Anonymous';
-                        if (quantity && !isNaN(quantity) && quantity > 0) {
-                            const total = price * quantity;
-                            recordSaleToSheet(itemName, quantity, total, customer);
-                            alert(`Reported: ${quantity} x ${itemName} = R${total.toFixed(2)}`);
-                            closeOrderModal();
-                        }
-                    };
+            // Back to top button functionality
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('active');
                 } else {
-                    title.textContent = `Order: ${itemName}`;
-                    body.innerHTML = `
-                        <div class="form-group">
-                            <label for="modal-quantity">How many ${itemName}s would you like?</label>
-                            <input type="number" id="modal-quantity" min="1" value="1">
-                        </div>
-                        <div class="form-group">
-                            <label for="modal-customer">Your Name (Optional)</label>
-                            <input type="text" id="modal-customer">
-                        </div>
-                    `;
-                    submitBtn.textContent = 'Place Order';
-                    submitBtn.onclick = () => {
-                        const quantity = document.getElementById('modal-quantity').value;
-                        const customer = document.getElementById('modal-customer').value || 'Anonymous';
-                        if (quantity && !isNaN(quantity) && quantity > 0) {
-                            const total = price * quantity;
-                            const message = `Order: ${quantity} x ${itemName} = R${total.toFixed(2)} by ${customer}`;
-                            const whatsappUrl = `https://wa.me/${contactNumbers[0]}?text=${encodeURIComponent(message)}`;
-                            recordOrderToSheet(itemName, quantity, total, customer);
-                            window.open(whatsappUrl, '_blank');
-                            closeOrderModal();
-                        }
-                    };
+                    backToTopBtn.classList.remove('active');
                 }
-            } else if (type === 'contact') {
-                const number = param1;
-                title.textContent = 'Order via WhatsApp';
-                body.innerHTML = `
-                    <div class="form-group">
-                        <label for="modal-item">What would you like to order?</label>
-                        <input type="text" id="modal-item">
-                    </div>
-                    <div class="form-group">
-                        <label for="modal-quantity">How many would you like?</label>
-                        <input type="number" id="modal-quantity" min="1" value="1">
-                    </div>
-                    <div class="form-group">
-                        <label for="modal-customer">Your Name (Optional)</label>
-                        <input type="text" id="modal-customer">
+            });
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Fetch institutions data
+            async function fetchInstitutions(type) {
+                showLoading();
+                try {
+                    const response = await fetch(`${scriptUrl}?type=${type}&t=${new Date().getTime()}`, {
+                        cache: 'no-store'
+                    });
+                    const data = await response.json();
+                    allInstitutions[type] = data;
+                    return data;
+                } catch (error) {
+                    console.error(`Error fetching ${type} data:`, error);
+                    return [];
+                } finally {
+                    hideLoading();
+                }
+            }
+
+            // Create institution card
+            function createInstitutionCard(institution, type) {
+                const col = document.createElement('div');
+                col.className = 'col-md-4 col-sm-6';
+                const whatsappMessage = institution.isOpen
+                    ? `Hello%20*APPLY%20WITH%20ME*,%20I%27ve%20noticed%20that%20the%20following%20is%20currently%20accepting%20applications%3A%0A%0A%E2%80%A2%20*${encodeURIComponent(institution.name)}*%20is%20OPEN%20for%20applications.%0A%0AI%20am%20interested%20in%20your%20application%20services%20and%20would%20like%20assistance%20with%20applying.%0A%0APlease%20provide%20the%20next%20steps%20for%20proceeding.%0A%0AFor%20more%20information%2C%20visit%20*applywithme.co.za*%0A*We%20Make%20The%20Impossible%20Possible*`
+                    : `Hello%20*APPLY%20WITH%20ME*,%20I%27ve%20noticed%20that%20the%20following%20institution%20is%20currently%20closed%20for%20applications%3A%0A%0A%E2%80%A2%20*${encodeURIComponent(institution.name)}*%20is%20CLOSED%20for%20applications.%0A%0APlease%20advise%20on%20other%20available%20options%20or%20next%20steps%20for%20future%20applications.%0A%0AFor%20more%20information%2C%20visit%20*applywithme.co.za*%0A*We%20Make%20The%20Impossible%20Possible*`;
+
+                let downloadButton = '';
+                if (type === 'universities' || type === 'tvet') {
+                    if (institution.prospectusLink) {
+                        downloadButton = `<a href="${institution.prospectusLink}" class="btn btn-download" target="_blank"><i class="fas fa-file-download btn-icon"></i>Download Prospectus</a>`;
+                    }
+                } else if (type === 'private' && institution.informationLink) {
+                    downloadButton = `<a href="${institution.informationLink}" class="btn btn-download" target="_blank"><i class="fas fa-file-download btn-icon"></i>Download Information</a>`;
+                } else if (type === 'bursaries' && institution.instructionsLink) {
+                    downloadButton = `<a href="${institution.instructionsLink}" class="btn btn-download" target="_blank"><i class="fas fa-file-download btn-icon"></i>Download Instructions</a>`;
+                }
+
+                col.innerHTML = `
+                    <div class="card">
+                        <img src="${institution.logo}" class="card-img-top" alt="${institution.name} Logo">
+                        <div class="card-body">
+                            <h5 class="card-title">${institution.name}</h5>
+                            <span class="status-badge ${institution.isOpen ? 'status-open' : 'status-closed'}">
+                                ${institution.isOpen ? 'Open' : 'Closed'}
+                            </span>
+                            <div class="card-buttons">
+                                <a href="${institution.website}" class="btn btn-primary" target="_blank">
+                                    <i class="fas fa-external-link-alt btn-icon"></i>Visit Website
+                                </a>
+                                ${downloadButton}
+                                <a href="https://wa.me/27673554250?text=${whatsappMessage}" class="btn btn-whatsapp" target="_blank">
+                                    <i class="fab fa-whatsapp btn-icon"></i>Apply via WhatsApp
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 `;
-                submitBtn.textContent = 'Send Order';
-                submitBtn.onclick = () => {
-                    const item = document.getElementById('modal-item').value;
-                    const quantity = document.getElementById('modal-quantity').value;
-                    const customer = document.getElementById('modal-customer').value || 'Anonymous';
-                    if (item && quantity && !isNaN(quantity) && quantity > 0) {
-                        const price = menuItems.find(i => i.name === item)?.price || 0;
-                        const total = price * quantity;
-                        const message = `Order: ${quantity} x ${item} = R${total.toFixed(2)} by ${customer}`;
-                        const whatsappUrl = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-                        recordOrderToSheet(item, quantity, total, customer);
-                        window.open(whatsappUrl, '_blank');
-                        closeOrderModal();
-                    }
-                };
+                return col;
             }
-            modal.style.display = 'flex';
-        }
 
-        function closeOrderModal() {
-            document.getElementById('order-modal').style.display = 'none';
-        }
+            // Render institutions
+            async function renderInstitutions(type, filter = 'all', searchQuery = '') {
+                const grid = document.getElementById(`${type}Grid`);
+                grid.innerHTML = '';
+                let institutions = allInstitutions[type].length ? allInstitutions[type] : await fetchInstitutions(type);
 
-        function callNumber(number) {
-            window.location.href = `tel:${number}`;
-        }
+                // Apply search filter
+                if (searchQuery) {
+                    institutions = institutions.filter(inst => 
+                        inst.name.toLowerCase().includes(searchQuery.toLowerCase())
+                    );
+                }
 
-        function login() {
-            const password = document.getElementById('password').value;
-            if (password === 'therelyadmin123') {
-                isAdminLoggedIn = true;
-                document.getElementById('login-modal').style.display = 'none';
-                document.getElementById('admin-section').style.display = 'block';
-                updateSalesSummary();
-                updateButtonsToReport();
-            } else {
-                alert('Incorrect password');
+                // Apply status filter
+                if (filter === 'open') {
+                    institutions = institutions.filter(inst => inst.isOpen);
+                } else if (filter === 'closed') {
+                    institutions = institutions.filter(inst => !inst.isOpen);
+                }
+
+                if (institutions.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <img src="https://via.placeholder.com/200" alt="No Results">
+                            <h3>No Results Found</h3>
+                            <p>Try adjusting your search or filter criteria.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                institutions.forEach(institution => {
+                    const card = createInstitutionCard(institution, type);
+                    grid.appendChild(card);
+                });
             }
-        }
 
-        function updateButtonsToReport() {
-            const buttons = document.querySelectorAll('.order-btn');
-            buttons.forEach(button => {
-                button.textContent = 'Report';
-                button.classList.add('report-btn');
+            // Tab change event
+            document.querySelectorAll('.nav-link').forEach(tab => {
+                tab.addEventListener('shown.bs.tab', function(e) {
+                    currentTab = e.target.id.replace('-tab', '');
+                    renderInstitutions(currentTab);
+                });
             });
-        }
 
-        function recordSale() {
-            const itemName = document.getElementById('item-select').value;
-            const quantity = document.getElementById('quantity').value;
-            const customer = document.getElementById('customer-name').value || 'Anonymous';
-            const price = menuItems.find(i => i.name === itemName).price;
-            const total = price * quantity;
-            recordSaleToSheet(itemName, quantity, total, customer);
-            alert(`Recorded: ${quantity} x ${itemName} = R${total.toFixed(2)}`);
-        }
-
-        function recordSaleToSheet(itemName, quantity, total, customer) {
-            const sale = {
-                date: new Date().toISOString(),
-                item: itemName,
-                quantity: parseInt(quantity),
-                total: total,
-                customer: customer
-            };
-            fetch(WEB_APP_URL, {
-                method: 'POST',
-                body: JSON.stringify({ type: 'sale', data: sale }),
-                headers: { 'Content-Type': 'application/json' },
-                mode: 'no-cors' // Use 'no-cors' for simplicity; see note below
-            }).then(() => {
-                salesData.push(sale);
-                localStorage.setItem('salesData', JSON.stringify(salesData));
-                updateSalesSummary();
-            }).catch(error => console.error('Error:', error));
-        }
-
-        function recordOrderToSheet(itemName, quantity, total, customer) {
-            const order = {
-                date: new Date().toISOString(),
-                item: itemName,
-                quantity: parseInt(quantity),
-                total: total,
-                customer: customer
-            };
-            fetch(WEB_APP_URL, {
-                method: 'POST',
-                body: JSON.stringify({ type: 'order', data: order }),
-                headers: { 'Content-Type': 'application/json' },
-                mode: 'no-cors' // Use 'no-cors' for simplicity; see note below
-            }).catch(error => console.error('Error:', error));
-        }
-
-        function updateSalesSummary() {
-            const today = new Date().toISOString().split('T')[0];
-            const todaySales = salesData.filter(sale => sale.date.startsWith(today));
-            const totalSales = todaySales.reduce((sum, sale) => sum + sale.total, 0);
-            const totalItems = todaySales.reduce((sum, sale) => sum + sale.quantity, 0);
-
-            document.getElementById('total-sales').textContent = totalSales.toFixed(2);
-            document.getElementById('total-items').textContent = totalItems;
-        }
-
-        function downloadSalesCSV() {
-            const headers = ['Date', 'Item Name', 'Quantity', 'Total (R)', 'Customer Name', 'Category'];
-            const rows = salesData.map(sale => {
-                const item = menuItems.find(i => i.name === sale.item);
-                return [
-                    sale.date,
-                    sale.item,
-                    sale.quantity,
-                    sale.total.toFixed(2),
-                    sale.customer,
-                    item ? item.category : 'Unknown'
-                ];
+            // Filter functionality
+            document.querySelectorAll('.filter-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const tabPane = this.closest('.tab-pane');
+                    const type = tabPane.id;
+                    document.querySelectorAll(`#${type} .filter-option`).forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    const filter = this.dataset.filter;
+                    const searchQuery = document.getElementById('searchInput').value;
+                    renderInstitutions(type, filter, searchQuery);
+                });
             });
-            const csvContent = [headers, ...rows].map(row => row.join(',')).join('\n');
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'sales_data.csv';
-            a.click();
-            window.URL.revokeObjectURL(url);
-        }
+
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', function() {
+                const filter = document.querySelector(`#${currentTab} .filter-option.active`).dataset.filter;
+                renderInstitutions(currentTab, filter, this.value);
+            });
+
+            // Initial render
+            renderInstitutions('universities');
+        });
     </script>
 </body>
 </html>
-
-OK, now this is amazing. Actually this is fantastic. So this is something that is missing. I think on H1H1 on each of the spreadsheet spreadsheet one was. OK, now this is amazing. Actually this is fantastic. So this is something that is missing. I think on H1H1 on each of the spreadsheet spreadsheet one was. sales and spreadsheet two of others. I think it's like that, yeah, spreadsheet for sales and others. sales and spreadsheet two of others. I think it's like that, yeah, spreadsheet for sales and others. Both of them on H1 is this total sum of the total column that is, I think is column D the total sum of it. So I want that to be displayed in the content. It has to get the information from H1 and then it will be displayed in the front end, but only when the admin has locked in the admin will see those information when they are locked in. You get what I'm saying. So yeah, we have to do that. Then we also. Both of them on H1 is this total sum of the total column that is, I think is column D the total sum of it. So I want that to be displayed in the content. It has to get the information from H1 and then it will be displayed in the front end, but only when the admin has locked in the admin will see those information when they are locked in. You get what I'm saying. So yeah, we have to do that. Then we also. have to say it has to get the information on H1 on both the spreadsheet. Maybe we can add another spreadsheet or not, but we can. Yeah. Also I will add another spreadsheet number three. I don't know what you want the title to be but gave me a title and also I'll just have a way it will just give me the totals for both for both this. have to say it has to get the information on H1 on both the spreadsheet. Maybe we can add another spreadsheet or not, but we can. Yeah. Also I will add another spreadsheet number three. I don't know what you want the title to be but gave me a title and also I'll just have a way it will just give me the totals for both for both this. sales and the orders too and the information has to be displayed in the front end too. So make sure you have a section in the front end only when the admin is logged in or probably at the top to see how much total money they've made so far here total money they've made in overall I guess and maybe we can also have a section for expenditure after the admin locks in they can say this is how much money they've spent and then they spend it on what and then that money will be minorized from the total one and I think that's where the 3rd sheet comes in sales and the orders too and the information has to be displayed in the front end too. So make sure you have a section in the front end only when the admin is logged in or probably at the top to see how much total money they've made so far here total money they've made in overall I guess and maybe we can also have a section for expenditure after the admin locks in they can say this is how much money they've spent and then they spend it on what and then that money will be minorized from the total one and I think that's where the 3rd sheet comes in It will only be errating the expenditure. Maybe they can have where they are right to say expenditure. I spent money on this. They will write a comment to say I spent money on this. I spent money on this. So in the front end after the admin locks into have a section where it will talk about or where money will stand and then it would be minus. Let's say the total amount that was made this month the total money that was spent which is the expenditure It will only be errating the expenditure. Maybe they can have where they are right to say expenditure. I spent money on this. They will write a comment to say I spent money on this. I spent money on this. So in the front end after the admin locks into have a section where it will talk about or where money will stand and then it would be minus. Let's say the total amount that was made this month the total money that was spent which is the expenditure can be in red and then the total money after the overall 1 - from the expenditure how much is the total money that comes to the pocket. Maybe something like that. So yeah that's update everything update the code that I gave you right now update a script code in full and make sure that everything is fine. Thank you very much. can be in red and then the total money after the overall 1 - from the expenditure how much is the total money that comes to the pocket. Maybe something like that. So yeah that's update everything update the code that I gave you right now update a script code in full and make sure that everything is fine. Thank you very much.
-
-
-function doPost(e) {
-  const data = JSON.parse(e.postData.contents);
-  const sheet = SpreadsheetApp.getActiveSpreadsheet();
-  
-  if (data.type === 'sale') {
-    const salesSheet = sheet.getSheetByName('Sales');
-    const sale = data.data;
-    salesSheet.appendRow([sale.date, sale.item, sale.quantity, sale.total, sale.customer]);
-    return ContentService.createTextOutput(JSON.stringify({ status: 'success' })).setMimeType(ContentService.MimeType.JSON);
-  } else if (data.type === 'order') {
-    const ordersSheet = sheet.getSheetByName('Orders');
-    const order = data.data;
-    ordersSheet.appendRow([order.date, order.item, order.quantity, order.total, order.customer]);
-    return ContentService.createTextOutput(JSON.stringify({ status: 'success' })).setMimeType(ContentService.MimeType.JSON);
-  }
-  
-  return ContentService.createTextOutput(JSON.stringify({ status: 'error' })).setMimeType(ContentService.MimeType.JSON);
-}
-
-And I would also love it is if this was displayed in a form of cards. So yeah, cards. Yeah, something like that. So let's get to it. And I said update the full HTML coding and don't leave anything behind. You get what I'm saying. Take your time. Do the whole full entire code and cover everything. I need the full HTML code. I need the full apps script code. I also need full instructions And I would also love it is if this was displayed in a form of cards. So yeah, cards. Yeah, something like that. So let's get to it. And I said update the full HTML coding and don't leave anything behind. You get what I'm saying. Take your time. Do the whole full entire code and cover everything. I need the full HTML code. I need the full apps script code. I also need full instructions
-Admin Dashboard
-Financial Overview
-Total Sales: R0.00
-
-Total Orders: R0.00
-
-Total Revenue: R0.00
-
-Total Expenditure: R0.00
-
-Net Profit: R0.00
-
-Sales Reporting
-Item
-
-Full Plate - R80.00
-Quantity
-1
-Customer Name (Optional)
-Record Sale Download Sales CSV
-Today's Sales Summary
-Total Sales: R0.00
-
-Total Items Sold: 0
-
-Record Expenditure
-Description
-e.g., Ingredients
-Amount (R)
-0,00
-Record Expenditure
